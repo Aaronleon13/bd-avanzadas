@@ -53,5 +53,5 @@ INSERT INTO orders (customer_id, total) VALUES (1,1000);
 SELECT id FROM orders WHERE total > 10000;
 
 --Consulta el total de ventas por cliente.
-SELECT name, SUM(total) AS total_ventas FROM orders;
+SELECT customer_id, SUM(total) AS total_ventas FROM orders;
 
