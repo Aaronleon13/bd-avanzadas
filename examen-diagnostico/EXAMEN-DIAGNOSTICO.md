@@ -145,19 +145,16 @@ CREATE TABLE Inscripciones (
 19. **Consulta el total de ventas por cliente.**
 
     ```sql
-    SELECT c.name, SUM(o.total) AS total_ventas
-    FROM customers c
-    JOIN orders o ON c.id = o.customer_id
-    GROUP BY c.name;
+    SELECT id_customer, SUM(total) AS total_ventas
+    FROM orders
     ```
 
 20. **Muestra solo clientes con ventas mayores a 30000.**
     ```sql
-    SELECT c.name, SUM(o.total) AS total_ventas
-    FROM customers c
-    JOIN orders o ON c.id = o.customer_id
-    GROUP BY c.name
-    HAVING SUM(o.total) > 30000;
+    SELECT id_customer
+    FROM orders
+    GROUP BY id_customer
+    HAVING SUM(total) > 30000;
     ```
 
 ---
