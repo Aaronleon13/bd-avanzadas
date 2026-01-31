@@ -34,8 +34,8 @@ CREATE TABLE Inscripciones (
     estado varchar(40),
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY id_alumno (id_alumno),
-    FOREIGN KEY id_materia (id_materia),
+    FOREIGN KEY (id_alumno) REFERENCES Alumnos(id_alumno),
+    FOREIGN KEY (id_materia) REFERENCES Materias(id_materia),
     UNIQUE (id_alumno, id_materia)
 )
 
