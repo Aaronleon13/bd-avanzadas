@@ -1,0 +1,40 @@
+-- CREAR BASE DE DATOS.
+CREATE DATABASE IF NOT EXISTS tienda;
+
+-- SELECCIONAR BASE DE DATOS.
+USE tienda;
+
+-- MOSTRAR BASE DE DATOS.
+SHOW DATABASES;
+
+-- MOSTRAR TABLAS.
+SHOW TABLES;
+
+-- Eliminar BASE DE DATOS.
+DROP DATABASE IF EXISTS tienda;
+
+
+-- CREAR TABLAS.
+CREATE TABLE IF NOT EXISTS productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL
+);
+
+-- INSERTAR DATOS.
+INSERT INTO productos (nombre, precio, stock) VALUES ('Laptop', 1000, 10);
+INSERT INTO productos (nombre, precio, stock) VALUES ('Mouse', 25, 100);
+INSERT INTO productos (nombre, precio, stock) VALUES ('Teclado', 50, 50);
+
+-- MOSTRAR DATOS.
+SELECT * FROM productos;
+
+-- ACTUALIZAR DATOS.
+UPDATE productos SET precio = 1100 WHERE id = 1;
+
+-- ELIMINAR DATOS.
+DELETE FROM productos WHERE id = 1;
+
+-- ELIMINAR TABLA.
+DROP TABLE productos;
