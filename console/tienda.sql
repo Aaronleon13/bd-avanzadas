@@ -38,3 +38,11 @@ DELETE FROM productos WHERE id = 1;
 
 -- ELIMINAR TABLA.
 DROP TABLE productos;
+
+-- DESCRIBIR TABLA.
+DESCRIBE productos;
+
+-- MOSTRAR COLUMNAS.
+SHOW COLUMNS FROM productos;
+
+
