@@ -15,7 +15,7 @@
 -- 6. Orden_Productos
 -- 7. Pagos
 
-CREATE TABLE  IF NOT EXISTS usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
