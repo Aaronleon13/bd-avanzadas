@@ -33,6 +33,9 @@ CALL insertar_empleados();
 
 -- Fin de la inserción de datos.
 
+-- Consulta para mostrar todos los empleados.
+SELECT * FROM empleados;
+
 -- Consulta sin índice usando EXPLAIN.
 EXPLAIN SELECT * FROM empleados WHERE departamento = 'Ventas';
 
