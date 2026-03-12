@@ -105,3 +105,10 @@ INSERT INTO clientes (nombre, email, telefono, direccion) VALUES
 ('Andres Manuel Lopez Obrador', 'andres@gmail.com', '87654321', 'Calle 456');
 
 
+INSERT INTO categorias (nombre, descripcion) VALUES 
+('Carnes frias', 'Productos ultra procesados de procedencia animal especificamente aves, cerdos y ganados'),
+('Pescados', 'Productos de procedencia animal marina'),
+('Verduras', 'Productos de procedencia terrestre sin semillas'),
+('Frutas', 'Productos de procedencia terrestre con semillas'),
+('Lacteos', 'Productos pertenecientes o relativos a la leche.'),
+('Bebidas', 'Productos con alcohol');
