@@ -93,3 +93,15 @@ CREATE TABLE IF NOT EXISTS pagos (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (orden_id) REFERENCES ordenes(id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+INSERT INTO usuarios (nombre, email, password_hash, is_active, rol) VALUES 
+('Alexis', 'alexis@gmail.com', 'alexis', TRUE, 'admin'),
+('Luis Miguel', 'luis@gmail.com', 'luis', TRUE, 'vendedor');
+
+INSERT INTO clientes (nombre, email, telefono, direccion) VALUES 
+('Pablo Emilio Escobar Gaviria', 'cocacola@gmail.com', '12345678', 'Calle 123'),
+('Andres Manuel Lopez Obrador', 'andres@gmail.com', '87654321', 'Calle 456');
+
+
