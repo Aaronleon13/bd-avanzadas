@@ -131,3 +131,19 @@ INSERT INTO productos (nombre, descripcion, precio, precio_oferta, stock, catego
 ('Jamon', 'Jamón de cerdo', 50, 40, 100, 1),
 ('Queso', 'Queso blanco', 50, 40, 100, 5);
 
+
+START TRANSACTION;
+
+INSERT INTO categorias (nombre, descripcion) VALUES
+('Juguetes', 'Juguetes para niños o adultos');
+
+SET @categoria_id = LAST_INSERT_ID();
+
+INSERT INTO productos (nombre, descripcion, precio, precio_oferta, stock, categoria_id)
+VALUES ('Pelota', 'Pelota de futbol', 20, 10, 100, @categoria_id);
+
+SELECT * FROM productos;
+
+COMMIT;
+ROLLBACK;
+
