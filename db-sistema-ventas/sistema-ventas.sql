@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS ordenes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,
     usuario_id INT NOT NULL,
-    total DECIMAL(10, 2) NOT NULL CHECK (total > 0),
+    total DECIMAL(10, 2) NOT NULL CHECK (total > 0), -- Modificar a >= para que pueda ser 0
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE RESTRICT,
@@ -111,4 +111,19 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 ('Verduras', 'Productos de procedencia terrestre sin semillas'),
 ('Frutas', 'Productos de procedencia terrestre con semillas'),
 ('Lacteos', 'Productos pertenecientes o relativos a la leche.'),
-('Bebidas', 'Productos con alcohol');
+('Bebidas', 'Productos con alcohol'),
+('Snacks', 'Productos de consumo rapido');
+
+
+INSERT INTO productos (nombre, descripcion, precio, precio_oferta, stock, categoria_id) VALUES
+('Cheetos', 'Snack de maiz', 20, 0, 100, 7),
+('Tomate', 'Fruta carnosa', 15, 0, 100, 4),
+('Beef Steak', 'Carne de res', 200, 180, 10, 1),
+('Chocomilk', 'Bebida de chocolate', 25, 20, 100, 6),
+('Leche', 'Bebida de vaca', 20, 15, 100, 5),
+('Pechuga de pollo', 'Pechuga de pollo', 100, 90, 10, 1),
+('Salchicha', 'Salchicha de cerdo', 50, 40, 100, 1),
+('Pescado', 'Pescado blanco', 150, 130, 10, 2),
+('Jamon', 'Jamón de cerdo', 50, 40, 100, 1),
+('Queso', 'Queso blanco', 50, 40, 100, 5);
+
