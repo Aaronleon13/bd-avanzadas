@@ -71,6 +71,10 @@ CREATE TABLE IF NOT EXISTS ordenes (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Cambiar el CHECK de total para que pueda ser 0
+ALTER TABLE ordenes
+MODIFY COLUMN total DECIMAL(10, 2) NOT NULL CHECK (total >= 0);
+
 CREATE TABLE IF NOT EXISTS orden_productos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     orden_id INT NOT NULL,
