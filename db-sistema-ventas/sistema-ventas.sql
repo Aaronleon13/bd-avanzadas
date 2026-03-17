@@ -116,8 +116,8 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 
 
 INSERT INTO productos (nombre, descripcion, precio, precio_oferta, stock, categoria_id) VALUES
-('Cheetos', 'Snack de maiz', 20, 0, 100, 7),
-('Tomate', 'Fruta carnosa', 15, 0, 100, 4),
+('Cheetos', 'Snack de maiz', 20, 10, 100, 7),
+('Tomate', 'Fruta carnosa', 15, 10, 100, 4),
 ('Beef Steak', 'Carne de res', 200, 180, 10, 1),
 ('Chocomilk', 'Bebida de chocolate', 25, 20, 100, 6),
 ('Leche', 'Bebida de vaca', 20, 15, 100, 5),
