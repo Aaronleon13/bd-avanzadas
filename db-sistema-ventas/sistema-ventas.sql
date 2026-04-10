@@ -147,3 +147,17 @@ SELECT * FROM productos;
 COMMIT;
 ROLLBACK;
 
+
+
+SELECT
+    p.nombre,
+    op.cantidad,
+    op.precio,
+    op.cantidad * op.precio AS subtotal
+FROM orden_productos op
+JOIN productos p ON op.producto_id = p.id
+WHERE op.orden_id = @orden_id;
+
+
+SELECT SUM(cantidad * precio) AS total FROM orden_productos
+WHERE orden_id = @orden_id;
