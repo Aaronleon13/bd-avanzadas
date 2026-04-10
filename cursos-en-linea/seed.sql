@@ -38,7 +38,7 @@ INSERT INTO estudiantes (nombre, curso_id) VALUES ('Ernesto', 6);
 INSERT INTO estudiantes (nombre, curso_id) VALUES ('Carolina', null);
 
 -- INNER JOIN
-SELECT estudiantes.nombre, cursos.nombre
+SELECT estudiantes.nombre AS Estudiante, cursos.nombre AS Curso
 FROM estudiantes
 INNER JOIN cursos ON estudiantes.curso_id = cursos.id;
 
