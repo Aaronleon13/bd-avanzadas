@@ -161,3 +161,42 @@ WHERE op.orden_id = @orden_id;
 
 SELECT SUM(cantidad * precio) AS total FROM orden_productos
 WHERE orden_id = @orden_id;
+
+
+-- Actividad GROUP BY Y HAVING
+
+
+SELECT 
+    p.nombre,
+    SUM(op.cantidad) AS total_vendidos
+FROM productos p
+JOIN orden_productos op ON p.id = op.producto_id
+GROUP BY p.id, p.nombre
+HAVING total_vendidos > 10;
+
+
+SELECT 
+    p.nombre,
+    SUM(op.cantidad) AS total_vendidos
+FROM productos p
+JOIN orden_productos op ON p.id = op.producto_id
+GROUP BY p.id, p.nombre
+HAVING total_vendidos > 10;
+
+
+SELECT 
+    DATE(o.created_at) AS fecha,
+    SUM(op.cantidad * op.precio) AS total
+FROM ordenes o
+JOIN orden_productos op ON o.id = op.orden_id
+GROUP BY fecha
+HAVING total > 1000;
+
+
+SELECT 
+    o.id,
+    COUNT(op.producto_id) AS total_productos
+FROM ordenes o
+JOIN orden_productos op ON o.id = op.orden_id
+GROUP BY o.id
+HAVING total_productos > 3;
