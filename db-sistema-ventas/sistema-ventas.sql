@@ -200,3 +200,21 @@ FROM ordenes o
 JOIN orden_productos op ON o.id = op.orden_id
 GROUP BY o.id
 HAVING total_productos > 3;
+
+
+--CREAR VISTA
+CREATE VIEW vista_productos AS
+SELECT id, nombre, precio, stock FROM productos WHERE stock > 0;
+
+
+--USAR
+SELECT * FROM vista_productos WHERE id = 1;
+
+SELECT id, nombre, precio, stock FROM productos WHERE stock > 0 AND id = 1;
+
+
+CREATE VIEW vista_ordenes_clientes AS
+SELECT id, total, is_active FROM ordenes o
+JOIN clientes c ON o.cliente_id = c.id;
+
+SELECT * FROM vista_ordenes_clientes WHERE cliente_id = 1;
