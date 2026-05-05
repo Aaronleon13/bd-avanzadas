@@ -218,3 +218,136 @@ SELECT id, total, is_active FROM ordenes o
 JOIN clientes c ON o.cliente_id = c.id;
 
 SELECT * FROM vista_ordenes_clientes WHERE cliente_id = 1;
+
+---------------------------------------------------------------
+
+-- STORED PROCEDURE
+
+DELIMITER $$
+
+CREATE PROCEDURE crear_venta(
+    IN p_cliente_id INT,
+    IN p_usuario_id INT,
+    IN p_total DECIMAL(10,2)
+)
+BEGIN
+    DECLARE v_orden_id INT;
+
+    -- manejo de errores
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
+    INSERT INTO ordenes (cliente_id, usuario_id, total)
+    VALUES (p_cliente_id, p_usuario_id, p_total);
+
+    SET v_orden_id = LAST_INSERT_ID();
+
+    INSERT INTO orden_productos (orden_id, producto_id, cantidad, precio)
+    VALUES
+    (v_orden_id, 2, 1, 300),
+    (v_orden_id, 5, 2, 20),
+    (v_orden_id, 7, 1, 50);
+
+    -- triggers:
+    -- Descontar Stock
+    -- Validar Stock negativo
+
+    INSERT INTO pagos (orden_id, monto, metodo_pago)
+    VALUES (v_orden_id, p_total, 'tarjeta');
+
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+
+------------------------- STORED PROCEDURE CORRECTO
+
+DELIMITER $$
+
+CREATE PROCEDURE crear_venta(
+    IN p_cliente_id INT,
+    IN p_usuario_id INT,
+    IN p_total DECIMAL(10,2),
+    IN p_productos JSON
+)
+BEGIN
+    DECLARE v_orden_id INT;
+    DECLARE v_total_real DECIMAL(10,2);
+
+    -- manejo de errores
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
+    INSERT INTO ordenes (cliente_id, usuario_id, total)
+    VALUES (p_cliente_id, p_usuario_id, p_total);
+
+    SET v_orden_id = LAST_INSERT_ID();
+
+    INSERT INTO orden_productos (orden_id, producto_id, cantidad, precio)
+    VALUES
+    (v_orden_id, 2, 1, 300),
+    (v_orden_id, 5, 2, 20),
+    (v_orden_id, 7, 1, 50);
+
+    -- triggers:
+
+    SELECT SUM(cantidad * precio)
+    INTO v_total_real
+    FROM orden_productos
+    WHERE orden_id = v_orden_id;
+
+    IF v_total_real != p_total THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Total incorrecto';
+    END IF;
+
+    INSERT INTO pagos (orden_id, monto, metodo_pago)
+    VALUES (v_orden_id, p_total, 'tarjeta');
+
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+CALL crear_venta(1, 1, 390, '[{"producto_id": 2, "cantidad": 1, "precio": 300}, {"producto_id": 5, "cantidad": 2, "precio": 20}, {"producto_id": 7, "cantidad": 1, "precio": 50}]');
+
+
+
+
+try{
+    START TRANSACTION;
+
+    INSERT INTO ordenes (cliente_id, usuario_id, total)
+    VALUES (p_cliente_id, p_usuario_id, p_total);
+
+    SET v_orden_id = LAST_INSERT_ID();
+
+    -- Itera sobre el array de productos
+    
+    INSERT INTO orden_productos (orden_id, producto_id, cantidad, precio)
+    VALUES
+    (v_orden_id, 2, 1, 300),
+    (v_orden_id, 5, 2, 20),
+    (v_orden_id, 7, 1, 50);
+
+    -- triggers:
+    -- Descontar Stock
+    -- Validar Stock negativo
+
+    INSERT INTO pagos (orden_id, monto, metodo_pago)
+    VALUES (v_orden_id, p_total, 'tarjeta');
+
+    COMMIT;
+}
+catch{
+    ROLLBACK;
+}
